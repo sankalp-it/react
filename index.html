@@ -17,12 +17,39 @@
       function Header({ title }) {
         return <h1>{createTitle(title)}</h1>;
       }
+
+      function MyButton({value, count, onClick}) {
+        const [likes, setLikes] = React.useState(0);
+
+        function onLocalClick() {
+          console.log("increment like count")
+          setLikes(likes + 1);
+        }    
+
+
+          if (count != -1) {
+            return (
+              <button onClick={onClick}>{value} ({count})</button>
+            );
+            
+          } else {
+            return (
+              <button onClick={onLocalClick}>{value} ({likes})</button>
+            );
+          }
+
+        
+      }
        
       function HomePage() {
         const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+        const [globalcount, setLikes] = React.useState(0);
+        const [count, setCount] = React.useState(0);
+
         function handleClick() {
-          console.log("increment like count")
+          setCount(count + 1);
         }
+
         return (
           <div>
             <Header title="Develop. Preview. Ship." />
@@ -31,8 +58,9 @@
                 <li key={name}>{name}</li>
               ))}
             </ul>
-            <button onClick={handleClick}>Like</button><p></p>
-            <button onClick={handleClick}>Dis-Like</button>
+            <MyButton value="Like" count={count} onClick={handleClick} />
+            <MyButton value="Dis-Like" count="-1" onClick={handleClick}/>
+            <MyButton value="N/A" count={count} onClick={handleClick} />
           </div>
         );
       }
