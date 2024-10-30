@@ -1,27 +1,44 @@
 <html>
   <body>
-    <div id="react-app"></div>
+    <div id="app"></div>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <!-- Babel Script -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/jsx">
-      // Select the div element with 'app' id
-      const app = document.getElementById('react-app');
-      //comment out the pre-react way of things
-      // // Create a new H1 element
-      // const header = document.createElement('h1');
-      // // Create a new text node for the H1 element
-      // const text = 'Develop. Preview. Ship.';
-      // const headerContent = document.createTextNode(text);
-      // // Append the text to the H1 element
-      // header.appendChild(headerContent);
-      // // Place the H1 element inside the div
-      // app.appendChild(header);
-      const root = ReactDOM.createRoot(app);
-      root.render(<h1>Develop. Preview. Ship.</h1>);
+      function createTitle(title) {
+        if (title) {
+          return title;
+        } else {
+          return 'Default title';
+        }
+      } 
 
-        
+      function Header({ title }) {
+        return <h1>{createTitle(title)}</h1>;
+      }
+       
+      function HomePage() {
+        const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+        function handleClick() {
+          console.log("increment like count")
+        }
+        return (
+          <div>
+            <Header title="Develop. Preview. Ship." />
+            <ul>
+              {names.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
+            <button onClick={handleClick}>Like</button><p></p>
+            <button onClick={handleClick}>Dis-Like</button>
+          </div>
+        );
+      }
+       
+      const root = ReactDOM.createRoot(app);
+      root.render(<HomePage />);
     </script>
   </body>
 </html>
